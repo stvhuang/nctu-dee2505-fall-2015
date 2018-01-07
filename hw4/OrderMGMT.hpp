@@ -3,7 +3,6 @@
  * @author   Yanjia Huang <yanjia.huang.tw@gmail.com>
  */
 
-
 #ifndef _ORDERMGMT_HPP_
 #define _ORDERMGMT_HPP_
 
@@ -21,10 +20,10 @@ struct Node {
 
 // Order Management System consolidating key operational processes.
 class OrderMGMT {
-private:
-    Node * root;
+  private:
+    Node *root;
 
-public:
+  public:
     OrderMGMT();
     void addOrder(unsigned date, unsigned id);
     void deleteOrders(unsigned start, unsigned end);

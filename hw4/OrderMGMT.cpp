@@ -12,13 +12,13 @@ OrderMGMT::OrderMGMT() : root(0) {}
 // Function to insert a new order.
 // date: Date of a order.
 // id: Order ID.
-void OrderMGMT::addOrder( unsigned date, unsigned id ) {
-    Node * p(root), * pp(0);
+void OrderMGMT::addOrder(unsigned date, unsigned id) {
+    Node *p(root), *pp(0);
     while (p) {
         pp = p;
-        if ( date < p->date) {
+        if (date < p->date) {
             p = p->left;
-        } else if ( date > p->date ) {
+        } else if (date > p->date) {
             p = p->right;
         } else {
             return;
@@ -32,8 +32,8 @@ void OrderMGMT::addOrder( unsigned date, unsigned id ) {
     p->leftSize = 0;
     p->right = 0;
 
-    if ( root ) {
-        if ( date < pp->date ) {
+    if (root) {
+        if (date < pp->date) {
             pp->left = p;
         } else {
             pp->right = p;
@@ -46,14 +46,14 @@ void OrderMGMT::addOrder( unsigned date, unsigned id ) {
 // Function to delete orders from a given range.
 // start: Begin date.
 // end: End date.
-void OrderMGMT::deleteOrders( unsigned start, unsigned end ) {
+void OrderMGMT::deleteOrders(unsigned start, unsigned end) {
     while (1) {
-        Node * p(root), * pp(0);
+        Node *p(root), *pp(0);
         while (p) {
-            if ( p->date < start ) {
+            if (p->date < start) {
                 pp = p;
                 p = p->right;
-            } else if ( p->date > end ) {
+            } else if (p->date > end) {
                 pp = p;
                 p = p->left;
             } else {
@@ -62,26 +62,26 @@ void OrderMGMT::deleteOrders( unsigned start, unsigned end ) {
         }
 
         if (p) {
-            if ( p->left == 0 && p->right == 0) {
-                if ( p == root ) {
+            if (p->left == 0 && p->right == 0) {
+                if (p == root) {
                     root = 0;
-                } else if ( pp->left == p ) {
+                } else if (pp->left == p) {
                     pp->left = 0;
                 } else {
                     pp->right = 0;
                 }
                 delete p;
-            } else if ( p->left == 0 && p->right != 0 ) {
-                if ( p == root ) {
+            } else if (p->left == 0 && p->right != 0) {
+                if (p == root) {
                     root = p->right;
-                } else if ( pp->left == p ) {
+                } else if (pp->left == p) {
                     pp->left = p->right;
                 } else {
                     pp->right = p->right;
                 }
                 delete p;
-            } else if ( p->right == 0 && p->left != 0 ) {
-                if ( p == root ) {
+            } else if (p->right == 0 && p->left != 0) {
+                if (p == root) {
                     root = p->left;
                 } else if (pp->left == p) {
                     pp->left = p->left;
@@ -90,13 +90,13 @@ void OrderMGMT::deleteOrders( unsigned start, unsigned end ) {
                 }
                 delete p;
             } else {
-                Node * mp(p->left);
-                Node * mpp(p);
+                Node *mp(p->left);
+                Node *mpp(p);
                 while (mp->right) {
                     mpp = mp;
                     mp = mp->right;
                 }
-                if ( mpp == p ) {
+                if (mpp == p) {
                     mpp->left = mp->left;
                 } else {
                     mpp->right = mp->left;
@@ -105,11 +105,11 @@ void OrderMGMT::deleteOrders( unsigned start, unsigned end ) {
                 mp->left = p->left;
                 mp->right = p->right;
 
-                    if ( p == root ) {
+                if (p == root) {
                     root = mp;
                     delete p;
                 } else {
-                    if ( pp->left == p ) {
+                    if (pp->left == p) {
                         pp->left = mp;
                         delete p;
                     } else {
@@ -118,37 +118,36 @@ void OrderMGMT::deleteOrders( unsigned start, unsigned end ) {
                     }
                 }
             }
-        }else {
+        } else {
             return;
         }
     }
 }
 
-
 // Function to output a list of order IDs from a given range of dates.
 // start Begin date.
 // end End date.
 // id_list Order IDs stored in the STL list.
-list<unsigned> OrderMGMT::searchByDate(unsigned start, unsigned end){
-    stack <Node*> s;
-    Node * currentNode(root);
+list<unsigned> OrderMGMT::searchByDate(unsigned start, unsigned end) {
+    stack<Node *> s;
+    Node *currentNode(root);
     list<unsigned> target;
 
     while (1) {
-        while ( currentNode ) {
-            s.push( currentNode );
+        while (currentNode) {
+            s.push(currentNode);
             currentNode = currentNode->left;
         }
 
-        if ( s.empty() ) {
+        if (s.empty()) {
             return target;
         }
 
         currentNode = s.top();
         s.pop();
 
-        if ( currentNode->date >= start && currentNode-> date <= end ) {
-            target.push_back( currentNode->id );
+        if (currentNode->date >= start && currentNode->date <= end) {
+            target.push_back(currentNode->id);
         }
 
         currentNode = currentNode->right;
@@ -159,8 +158,8 @@ list<unsigned> OrderMGMT::searchByDate(unsigned start, unsigned end){
 // start Begin order.
 // end End order.
 // id_list Order IDs stored in the STL list.
-list<unsigned> OrderMGMT::searchByDateOrdering(unsigned start, unsigned end){
-    stack <Node*> s;
+list<unsigned> OrderMGMT::searchByDateOrdering(unsigned start, unsigned end) {
+    stack<Node *> s;
     Node *currentNode(root);
     list<unsigned> target;
     unsigned order(0);
@@ -171,7 +170,7 @@ list<unsigned> OrderMGMT::searchByDateOrdering(unsigned start, unsigned end){
             currentNode = currentNode->left;
         }
 
-        if ( s.empty()) {
+        if (s.empty()) {
             return target;
         }
 
@@ -179,8 +178,8 @@ list<unsigned> OrderMGMT::searchByDateOrdering(unsigned start, unsigned end){
         s.pop();
         ++order;
 
-        if (order >= start && order <= end ) {
-            target.push_back( currentNode->id );
+        if (order >= start && order <= end) {
+            target.push_back(currentNode->id);
         }
 
         currentNode = currentNode->right;

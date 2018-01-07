@@ -10,11 +10,11 @@ long PRIMECHECKER::PrimeChecker(long a, long b) {
     long num_prime(0);
     const long devideBound(sqrt(b) + 1);
 
-    if (a % 2) { // a is an odd
+    if (a % 2) {  // a is an odd
         for (int i(a); i <= b; i += 2) {
             prime_or_not = true;
             for (int j(0); primeTable[j] <= devideBound; ++j) {
-                if ( !( i % primeTable[j] ) ) {
+                if (!(i % primeTable[j])) {
                     prime_or_not = false;
                     break;
                 }
@@ -23,16 +23,16 @@ long PRIMECHECKER::PrimeChecker(long a, long b) {
                 ++num_prime;
             }
         }
-    } else { // a is an even
+    } else {  // a is an even
         for (int i(a + 1); i <= b; i += 2) {
             prime_or_not = true;
             for (int j(0); primeTable[j] <= devideBound; ++j) {
-                if ( !( i % primeTable[j] ) ) {
+                if (!(i % primeTable[j])) {
                     prime_or_not = false;
                     break;
                 }
             }
-            if(prime_or_not) {
+            if (prime_or_not) {
                 ++num_prime;
             }
         }
